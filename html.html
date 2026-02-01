@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You</title>
+
+<style>
+:root{
+  --pink:#ff6b9a;
+  --bg:#ffe6ef;
+  --card:#ffffffcc;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  background:var(--bg);
+  font-family:"Segoe UI",sans-serif;
+  overflow:hidden;
+  color:#333;
+}
+
+/* floating hearts */
+.heart{
+  position:fixed;
+  font-size:12px;
+  color:#ff8fb3;
+  opacity:.6;
+  animation:float 10s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh)}
+  to{transform:translateY(-10vh)}
+}
+
+/* pages */
+.page{
+  display:none;
+  height:100vh;
+  align-items:center;
+  justify-content:center;
+}
+.page.active{display:flex}
+
+/* card */
+.card{
+  width:340px;
+  background:var(--card);
+  border-radius:20px;
+  padding:28px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  animation:fadeUp .7s ease;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* gif */
+.gif{
+  width:140px;
+  border-radius:14px;
+  margin-bottom:15px;
+}
+
+/* text */
+h1,h2{margin:10px 0;color:#ff4f87}
+p{font-size:14px;opacity:.85}
+
+/* buttons */
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+  font-size:16px;
+}
+.yes{
+  background:linear-gradient(45deg,#ff5c8a,#ff8fb3);
+  color:white;
+}
+.no{
+  background:#eee;
+  color:#777;
+}
+
+/* shake */
+.shake{animation:shake .35s}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  50%{transform:translateX(8px)}
+  75%{transform:translateX(-8px)}
+  100%{transform:translateX(0)}
+}
+
+/* signatures */
+.top-name{
+  font-weight:700;
+  color:#ff4f87;
+  margin-bottom:6px;
+}
+.footer{
+  position:fixed;
+  bottom:10px;
+  right:14px;
+  font-size:11px;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active">
+  <div class="card">
+    <div class="top-name">from naitik</div>
+
+    <img class="gif"
+      src="https://media.tenor.com/zGm5acSjHCIAAAAC/cute-love.gif"
+      alt="cute">
+
+    <h1>Hey Beautiful</h1>
+    <p>I have something special for you</p>
+
+    <button class="btn yes" onclick="next()">Start</button>
+  </div>
+</div>
+
+<!-- PAGE 2 : QUIZ -->
+<div class="page">
+  <div class="card">
+    <h2>Will you be mine?</h2>
+
+    <button class="btn yes" onclick="next()">Yes</button>
+    <button class="btn no" onclick="wrong(this)">No</button>
+  </div>
+</div>
+
+<!-- PAGE 3 : LETTER -->
+<div class="page">
+  <div class="card">
+    <h2>A Letter For You</h2>
+
+    <p id="letter">
+      You make everything feel calmer and warmer.
+      Being with you feels right, and I’d love
+      to keep choosing you every day.
+    </p>
+
+    <button class="btn yes" onclick="next()">Continue</button>
+  </div>
+</div>
+
+<!-- PAGE 4 : FINAL -->
+<div class="page">
+  <div class="card">
+    <h1>It’s Always You</h1>
+    <p>This moment is yours.</p>
+  </div>
+</div>
+
+<div class="footer">made by hell</div>
+
+<script>
+let i=0;
+const pages=document.querySelectorAll(".page");
+
+function next(){
+  pages[i].classList.remove("active");
+  i++;
+  pages[i].classList.add("active");
+}
+
+function wrong(btn){
+  const card=btn.closest(".card");
+  card.classList.add("shake");
+  setTimeout(()=>card.classList.remove("shake"),350);
+}
+
+/* hearts */
+for(let j=0;j<35;j++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="♥";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=7+Math.random()*6+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
